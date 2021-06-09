@@ -17,6 +17,7 @@ pygame.display.set_icon(icon)
 clock = pygame.time.Clock()
 FPS = 60
 
+
 # Cria objetos da classe Soldado
 jogador = classes.Soldado("jogador", 200, 200, 2, 5)
 inimigo = classes.Soldado("inimigo", 400, 200, 2, 5)
@@ -42,10 +43,22 @@ while rodando:
 
     desenha_fundo()
 
+    jogador.update_animation()
     jogador.draw(tela)
     inimigo.draw(tela)
 
     jogador.move(movendo_esquerda, movendo_direita)
+
+
+    #atualiza acoes do jogador
+    if jogador.vivo:
+        if jogador.in_air:
+            jogador.update_action(2)#2: Pulo
+        elif movendo_direita or movendo_esquerda:
+            jogador.update_action(1)#1: Correndo
+        else:
+            jogador.update_action(0)#0: parado
+        jogador.move(movendo_esquerda,movendo_direita)
 
     for event in pygame.event.get():
         # Sai do jogo quando a aba for fechada
@@ -58,6 +71,10 @@ while rodando:
                 movendo_esquerda = True
             if event.key == pygame.K_d:
                 movendo_direita = True
+            if event.key == pygame.K_w and jogador.vivo:
+                jogador.jump = True
+            if event.key == pygame.K_ESCAPE:
+                rodando = False
 
         # Verifica teclas soltas
         if event.type == pygame.KEYUP:
