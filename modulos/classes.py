@@ -25,11 +25,7 @@ class Soldado(pygame.sprite.Sprite):
         self.in_air = True
         self.jump = False
 
-        #GAMBIARRA TEMPORÁRIA PRA USAR OS SPRITES
-        if self.tipo=="jogador":
-            self.tipo="player_default"
-        if self.tipo=="inimigo":
-            self.tipo="enemy_default"
+    
 
         self.update_time = pygame.time.get_ticks()
 
