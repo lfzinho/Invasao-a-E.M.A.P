@@ -1,6 +1,6 @@
 import pygame
 import os
-import classes
+from modulos import classes
 
 pygame.init()
 
