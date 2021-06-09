@@ -1,7 +1,7 @@
 import pygame
 import os
 from modulos import classes
-
+# Escrevi um comentário só pra testar
 pygame.init()
 
 largura_tela = 800
