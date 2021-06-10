@@ -19,6 +19,7 @@ pygame.display.set_icon(icone)
 clock = pygame.time.Clock()
 FPS = 60
 
+# Variáveis Booleanas
 movendo_direita = False
 movendo_esquerda = False
 atirando = False
@@ -47,30 +48,24 @@ while rodando:
     classes.inimigo.update()
     classes.inimigo.draw(TELA)
 
-
-
     classes.jogador.move(movendo_esquerda, movendo_direita)
-
 
     # Atualiza ações do jogador
     if classes.jogador.vivo:
         if atirando:
-            classes.jogador.shooting() # Atirando
+            classes.jogador.shooting()  # Atirando
         if classes.jogador.no_ar:
-            classes.jogador.update_action(2) #2: Pulo
+            classes.jogador.update_action(2)  # 2: Pulo
         elif movendo_direita or movendo_esquerda:
-            classes.jogador.update_action(1) #1: Correndo
+            classes.jogador.update_action(1)  # 1: Correndo
         else:
-            classes.jogador.update_action(0) #0: parado
-        classes.jogador.move(movendo_esquerda, movendo_direita)
+            classes.jogador.update_action(0)  # 0: parado
 
     # Atualiza e desenha grupos
     classes.grupo_de_balas.update()
     classes.grupo_de_balas.draw(TELA)
 
     pygame.display.update()
-
-
 
     for event in pygame.event.get():
         # Sai do jogo quando a aba for fechada
@@ -84,7 +79,7 @@ while rodando:
             if event.key == pygame.K_d:
                 movendo_direita = True
             if event.key == pygame.K_SPACE:
-                shoot = True
+                atirando = True
             if event.key == pygame.K_w and classes.jogador.vivo:
                 classes.jogador.pular = True
             if event.key == pygame.K_ESCAPE:
@@ -97,7 +92,7 @@ while rodando:
             if event.key == pygame.K_d:
                 movendo_direita = False
             if event.key == pygame.K_SPACE:
-                shoot = False
+                atirando = False
             if event.key == pygame.K_ESCAPE:
                 rodando = False
 
