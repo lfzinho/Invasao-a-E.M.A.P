@@ -1,29 +1,27 @@
 import pygame
 import os
 from modulos import classes
-# Escrevi um comentário só pra testar
+
 pygame.init()
 
-largura_tela = 800
-altura_tela = int(largura_tela * 0.8)
-tela = pygame.display.set_mode((largura_tela, altura_tela))
+# Variáveis Globais
+LARGURA_TELA = 800
+ALTURA_TELA = int(LARGURA_TELA * 0.8)
+TELA = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
+tempo_da_animacao = 100
 
-# Altera o título e o ícone da aba
+# Altera o Título e o Ícone da Aba
 pygame.display.set_caption("Sonia's Fury")
-icon = pygame.image.load(os.path.join("sprites", "flame_icon.png"))
-pygame.display.set_icon(icon)
+icone = pygame.image.load(os.path.join("sprites", "flame_icon.png"))
+pygame.display.set_icon(icone)
 
 # Define FPS
 clock = pygame.time.Clock()
 FPS = 60
 
-
-# Cria objetos da classe Soldado
-jogador = classes.Soldado("jogador", 200, 200, 2, 5)
-inimigo = classes.Soldado("inimigo", 400, 200, 2, 5)
-
 movendo_direita = False
 movendo_esquerda = False
+atirando = False
 
 # Define a cores
 fundo = (144, 201, 220)
@@ -33,7 +31,7 @@ def desenha_fundo():
     """
     desenha o fundo toda vez que é chamada
     """
-    tela.fill(fundo)
+    TELA.fill(fundo)
 
 
 rodando = True
@@ -43,22 +41,36 @@ while rodando:
 
     desenha_fundo()
 
-    jogador.update_animation()
-    jogador.draw(tela)
-    inimigo.draw(tela)
+    classes.jogador.update_animation()
+    classes.jogador.update()
+    classes.jogador.draw(TELA)
+    classes.inimigo.update()
+    classes.inimigo.draw(TELA)
 
-    jogador.move(movendo_esquerda, movendo_direita)
 
 
-    #atualiza acoes do jogador
-    if jogador.vivo:
-        if jogador.in_air:
-            jogador.update_action(2)#2: Pulo
+    classes.jogador.move(movendo_esquerda, movendo_direita)
+
+
+    # Atualiza ações do jogador
+    if classes.jogador.vivo:
+        if atirando:
+            classes.jogador.shooting() # Atirando
+        if classes.jogador.no_ar:
+            classes.jogador.update_action(2) #2: Pulo
         elif movendo_direita or movendo_esquerda:
-            jogador.update_action(1)#1: Correndo
+            classes.jogador.update_action(1) #1: Correndo
         else:
-            jogador.update_action(0)#0: parado
-        jogador.move(movendo_esquerda,movendo_direita)
+            classes.jogador.update_action(0) #0: parado
+        classes.jogador.move(movendo_esquerda, movendo_direita)
+
+    # Atualiza e desenha grupos
+    classes.grupo_de_balas.update()
+    classes.grupo_de_balas.draw(TELA)
+
+    pygame.display.update()
+
+
 
     for event in pygame.event.get():
         # Sai do jogo quando a aba for fechada
@@ -71,8 +83,10 @@ while rodando:
                 movendo_esquerda = True
             if event.key == pygame.K_d:
                 movendo_direita = True
-            if event.key == pygame.K_w and jogador.vivo:
-                jogador.jump = True
+            if event.key == pygame.K_SPACE:
+                shoot = True
+            if event.key == pygame.K_w and classes.jogador.vivo:
+                classes.jogador.pular = True
             if event.key == pygame.K_ESCAPE:
                 rodando = False
 
@@ -82,6 +96,8 @@ while rodando:
                 movendo_esquerda = False
             if event.key == pygame.K_d:
                 movendo_direita = False
+            if event.key == pygame.K_SPACE:
+                shoot = False
             if event.key == pygame.K_ESCAPE:
                 rodando = False
 
