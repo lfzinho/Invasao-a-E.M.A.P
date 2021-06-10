@@ -4,14 +4,13 @@ import os
 # Define as variaveis do jogo
 GRAVIDADE = 0.7
 
-
 # Variáveis Globais
 LARGURA_TELA = 800
 ALTURA_TELA = int(LARGURA_TELA * 0.8)
 TELA = pygame.display.set_mode((LARGURA_TELA, ALTURA_TELA))
 
 # Imagens
-imagem_lapis = pygame.image.load(r"C:\Users\Kayo\sonias-fury\sprites\bullet.png").convert_alpha()
+imagem_lapis = pygame.image.load(r"sprites\bullet.png").convert_alpha()
 
 
 class Soldado(pygame.sprite.Sprite):
@@ -39,18 +38,23 @@ class Soldado(pygame.sprite.Sprite):
 
         self.tempo_de_atualizacao = pygame.time.get_ticks()
 
-        tipos_de_animacao = ["Idle", "Run", "Jump"]
-        for animation in tipos_de_animacao:
-            lista_temporaria = []
-            # conta quantos arquivos tem na pasta (ou seja, quantos frames tem a animação)
-            num_de_frames = len(os.listdir(os.path.join("sprites", self.tipo, animation)))
-            print(num_de_frames, " em ", animation)
-            for i in range(num_de_frames):
-                imagem = pygame.image.load(os.path.join("sprites", self.tipo, animation, (str(i) + ".png")))
-                imagem = pygame.transform.scale(imagem,
-                                                (int(imagem.get_width() * escala), int(imagem.get_height() * escala)))
-                lista_temporaria.append(imagem)
-            self.lista_animacoes.append(lista_temporaria)
+        # Será criado uma lista de animações dentro de uma lista de animações de uma certa ação
+        # Exemplo [[descanso_0, ..., descanso_4], [corrida_0, ..., corrida_5]]
+        # Loop para animações
+        tipos_de_animacao = ["Idle", "Run", "Jump", "Death"]
+        for tipo_de_animacao in tipos_de_animacao:
+            # Reseta a lista temporaria de frames
+            temp_list = []
+            numero_de_frames = len(
+                os.listdir(f"sprites\\{self.tipo}\\{tipo_de_animacao}"))
+            for animacao in range(numero_de_frames):
+                imagem_player = pygame.image.load(
+                    f"sprites\\{self.tipo}\\{tipo_de_animacao}\\{animacao}.png").convert_alpha()
+                imagem_player = pygame.transform.scale(imagem_player,
+                                                       (int(imagem_player.get_width() * escala),
+                                                        int(imagem_player.get_height() * escala)))
+                temp_list.append(imagem_player)
+            self.lista_animacoes.append(temp_list)
 
         self.image = self.lista_animacoes[self.acao][self.frame_indice]
         self.tempo_de_atualizacao = pygame.time.get_ticks()
@@ -116,7 +120,7 @@ class Soldado(pygame.sprite.Sprite):
             self.tempo_tiro = 20
             lapis = Bala(
                 self.rect.centerx + (0.6 * self.rect.size[0] * self.direcao),
-                self.rect.centery,
+                self.rect.centery + (0.15 * self.rect.size[0]),
                 self.direcao)
             grupo_de_balas.add(lapis)
             self.municao -= 1
@@ -163,33 +167,36 @@ class Soldado(pygame.sprite.Sprite):
 
 
 class Bala(pygame.sprite.Sprite):
-    def __init__(self, x, y, direcao):
+    def __init__(self, x, y, direcao, escala = 1.2):
         super().__init__()
-        self.x = 10
+        self.velocidade_x = 10
         self.direcao = direcao
-        self.image = imagem_lapis
+        self.image = pygame.transform.scale(imagem_lapis,
+                                            (int(imagem_lapis.get_width() * escala),
+                                             int(imagem_lapis.get_height() * escala)))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
     def update(self):
         # Movimenta a bala
-        self.rect.x += (self.direcao * self.x)
+        self.rect.x += (self.direcao * self.velocidade_x)
         # Checa se as balas sairam da tela para tira-las da memória
         if self.rect.right < 0 or self.rect.left > TELA.get_width():
             self.kill()
         # Checa a colisão entre objetos
         if pygame.sprite.spritecollide(jogador, grupo_de_balas, False):
             if jogador.alive:
-                jogador.health -= 5
+                jogador.vida -= 5
                 self.kill()
         if pygame.sprite.spritecollide(inimigo, grupo_de_balas, False):
             if inimigo.alive:
-                inimigo.health -= 25
+                inimigo.vida -= 25
                 self.kill()
+
 
 # Cria objetos da classe Soldado
 jogador = Soldado("jogador", 200, 200, 2, 2, 9999)
-inimigo = Soldado("inimigo", 400, 300, 2, 3, 0)
+inimigo = Soldado("inimigo", 400, 280, 2, 3, 0)
 
 # Cria uma grupo para os projéteis
 grupo_de_balas = pygame.sprite.Group()
