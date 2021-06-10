@@ -2,7 +2,7 @@ import pygame
 import os
 
 # Define as variaveis do jogo
-GRAVIDADE = 0.7
+GRAVIDADE = 0.75
 
 # Variáveis Globais
 LARGURA_TELA = 800
@@ -195,7 +195,7 @@ class Bala(pygame.sprite.Sprite):
 
 
 # Cria objetos da classe Soldado
-jogador = Soldado("jogador", 200, 200, 2, 2, 9999)
+jogador = Soldado("jogador", 200, 200, 2, 3, 9999)
 inimigo = Soldado("inimigo", 400, 280, 2, 3, 0)
 
 # Cria uma grupo para os projéteis
