@@ -21,7 +21,7 @@ FPS = 60
 
 #define game variables
 GRAVITY = 0.75
-SCROLL_THRESH = 200
+SCROLL_THRESH = 280
 DEFAULT_ROWS = 16
 ROWS = 10
 Y_SPEED_MULTIPIER = DEFAULT_ROWS / ROWS
@@ -159,7 +159,7 @@ class Soldier(pygame.sprite.Sprite):
         self.update_time = pygame.time.get_ticks()
         #ai specific variables
         self.move_counter = 0
-        self.vision = pygame.Rect(0, 0, 450, 450)
+        self.vision = pygame.Rect(0, 0, 650, 650)
         self.idling = False
         self.idling_counter = 0
         
@@ -189,6 +189,14 @@ class Soldier(pygame.sprite.Sprite):
         #update cooldown
         if self.shoot_cooldown > 0:
             self.shoot_cooldown -= 1
+        
+        # MOD: se o fantasma e o player se encontram
+        if self.char_type == "enemy" and self.alive:
+            if pygame.sprite.collide_rect(player, self):
+                if player.alive:
+                    print(self.char_type, self.alive)
+                    player.health -= 20
+                    self.kill()
 
 
     def move(self, moving_left, moving_right, ghost_move=False, player_pos=[0,0]):
@@ -214,11 +222,11 @@ class Soldier(pygame.sprite.Sprite):
             # O fantasma dá preferência pra movimentação em y, pois assim ele
             # entra na mira do player. Isso deixa o jogo mais divertido e justo.
             
-            if abs(self.rect.y-player_pos[1]) > self.speed * Y_SPEED_MULTIPIER:
+            if abs(self.rect.y-player_pos[1])*3 > abs(self.rect.x-player_pos[0]):
                 if self.rect.y < player_pos[1]:
-                    dy = self.speed * Y_SPEED_MULTIPIER
+                    dy = self.speed
                 elif self.rect.y > player_pos[1]:
-                    dy = -self.speed * Y_SPEED_MULTIPIER
+                    dy = -self.speed
             
             # move em x e define a direção de acordo
             else:
@@ -516,7 +524,7 @@ class Bullet(pygame.sprite.Sprite):
         for enemy in enemy_group:
             if pygame.sprite.spritecollide(enemy, bullet_group, False):
                 if enemy.alive:
-                    enemy.health -= 25
+                    enemy.health -= 35
                     self.kill()
 
 
