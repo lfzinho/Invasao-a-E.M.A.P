@@ -22,7 +22,9 @@ FPS = 60
 #define game variables
 GRAVITY = 0.75
 SCROLL_THRESH = 200
-ROWS = 16
+DEFAULT_ROWS = 16
+ROWS = 10
+Y_SPEED_MULTIPIER = DEFAULT_ROWS / ROWS
 COLS = 150
 TILE_SIZE = SCREEN_HEIGHT // ROWS
 TILE_TYPES = 21
@@ -135,6 +137,7 @@ def reset_level():
 
 class Soldier(pygame.sprite.Sprite):
     def __init__(self, char_type, x, y, scale, speed, ammo, grenades):
+        scale = scale * (DEFAULT_ROWS / ROWS)
         pygame.sprite.Sprite.__init__(self)
         self.alive = True
         self.char_type = char_type
@@ -211,11 +214,11 @@ class Soldier(pygame.sprite.Sprite):
             # O fantasma dá preferência pra movimentação em y, pois assim ele
             # entra na mira do player. Isso deixa o jogo mais divertido e justo.
             
-            if abs(self.rect.y-player_pos[1]) > self.speed:
+            if abs(self.rect.y-player_pos[1]) > self.speed * Y_SPEED_MULTIPIER:
                 if self.rect.y < player_pos[1]:
-                    dy = self.speed
+                    dy = self.speed * Y_SPEED_MULTIPIER
                 elif self.rect.y > player_pos[1]:
-                    dy = -self.speed
+                    dy = -self.speed * Y_SPEED_MULTIPIER
             
             # move em x e define a direção de acordo
             else:
@@ -235,7 +238,7 @@ class Soldier(pygame.sprite.Sprite):
             self.vel_y += GRAVITY
             if self.vel_y > 10:
                 self.vel_y
-            dy += self.vel_y
+            dy += self.vel_y * Y_SPEED_MULTIPIER
     
             #check for collision
             for tile in world.obstacle_list:
@@ -534,7 +537,7 @@ class Grenade(pygame.sprite.Sprite):
     def update(self):
         self.vel_y += GRAVITY
         dx = self.direction * self.speed
-        dy = self.vel_y
+        dy = self.vel_y * Y_SPEED_MULTIPIER
 
         #check for collision with level
         for tile in world.obstacle_list:
