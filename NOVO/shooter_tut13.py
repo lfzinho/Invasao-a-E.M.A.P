@@ -317,10 +317,12 @@ class Soldier(pygame.sprite.Sprite):
             level_complete = True
 
         # check if fallen off the map
-        if self.rect.bottom > SCREEN_HEIGHT:
-            self.health = 0
-        if self.rect.bottom < 0:
-            self.health = 0
+        if self.gravity == 1:
+            if self.rect.bottom > SCREEN_HEIGHT:
+                self.health = 0
+        if self.gravity == -1:
+            if self.rect.bottom < 0:
+                self.health = 0
 
 
         # check if going off the edges of the screen
