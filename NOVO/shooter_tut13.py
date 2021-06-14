@@ -116,7 +116,7 @@ def draw_bg():
 
 def draw_mist():
     # this function draws a mist when the player is in the phantom dimension
-    s = pygame.Surface((1000, 750))  # the size of your rect
+    s = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))  # the size of your rect
     if player.gravity == 1:
         s.set_alpha(0)  # alpha level
     if player.gravity == -1:
