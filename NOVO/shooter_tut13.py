@@ -285,8 +285,9 @@ class Soldier(pygame.sprite.Sprite):
             self.health = 0
 
         if pygame.sprite.spritecollide(self, portal_group, False):
-            self.gravity = -1
-            self.flipy = True
+            if self.char_type != "enemy":
+                self.gravity = -1
+                self.flipy = True
 
         #check for collision with exit
         level_complete = False
