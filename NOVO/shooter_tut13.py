@@ -122,6 +122,7 @@ def reset_level():
     item_box_group.empty()
     decoration_group.empty()
     water_group.empty()
+    portal_group.empty()
     exit_group.empty()
 
     #create empty tile list
@@ -153,6 +154,8 @@ class Soldier(pygame.sprite.Sprite):
         self.jump = False
         self.in_air = True
         self.flip = False
+        self.flipy = False
+        self.gravity = 1
         self.animation_list = []
         self.frame_index = 0
         self.action = 0
@@ -246,7 +249,7 @@ class Soldier(pygame.sprite.Sprite):
             self.vel_y += GRAVITY
             if self.vel_y > 10:
                 self.vel_y
-            dy += self.vel_y * Y_SPEED_MULTIPIER
+            dy += self.vel_y * Y_SPEED_MULTIPIER * self.gravity
     
             #check for collision
             for tile in world.obstacle_list:
@@ -262,17 +265,28 @@ class Soldier(pygame.sprite.Sprite):
                     #check if below the ground, i.e. jumping
                     if self.vel_y < 0:
                         self.vel_y = 0
-                        dy = tile[1].bottom - self.rect.top
+                        if self.gravity > 0:
+                            dy = tile[1].bottom - self.rect.top
+                        elif self.gravity < 0:
+                            dy = tile[1].top - self.rect.bottom
                     #check if above the ground, i.e. falling
                     elif self.vel_y >= 0:
                         self.vel_y = 0
                         self.in_air = False
-                        dy = tile[1].top - self.rect.bottom
+                        if self.gravity > 0:
+                            dy = tile[1].top - self.rect.bottom
+                        elif self.gravity < 0:
+                            dy = tile[1].bottom - self.rect.top
+
 
 
         #check for collision with water
         if pygame.sprite.spritecollide(self, water_group, False):
             self.health = 0
+
+        if pygame.sprite.spritecollide(self, portal_group, False):
+            self.gravity = -1
+            self.flipy = True
 
         #check for collision with exit
         level_complete = False
@@ -281,6 +295,8 @@ class Soldier(pygame.sprite.Sprite):
 
         #check if fallen off the map
         if self.rect.bottom > SCREEN_HEIGHT:
+            self.health = 0
+        if self.rect.bottom < 0:
             self.health = 0
 
 
@@ -366,7 +382,7 @@ class Soldier(pygame.sprite.Sprite):
 
 
     def draw(self):
-        screen.blit(pygame.transform.flip(self.image, self.flip, False), self.rect)
+        screen.blit(pygame.transform.flip(self.image, self.flip, self.flipy), self.rect)
 
 
 class World():
@@ -389,6 +405,9 @@ class World():
                     elif tile >= 9 and tile <= 10:
                         water = Water(img, x * TILE_SIZE, y * TILE_SIZE)
                         water_group.add(water)
+                    elif tile == 11:
+                        portal = Portal(img, x * TILE_SIZE, y * TILE_SIZE)
+                        portal_group.add(portal)
                     elif tile >= 11 and tile <= 14:
                         decoration = Decoration(img, x * TILE_SIZE, y * TILE_SIZE)
                         decoration_group.add(decoration)
@@ -432,6 +451,16 @@ class Decoration(pygame.sprite.Sprite):
 
 
 class Water(pygame.sprite.Sprite):
+    def __init__(self, img, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        self.image = img
+        self.rect = self.image.get_rect()
+        self.rect.midtop = (x + TILE_SIZE // 2, y + (TILE_SIZE - self.image.get_height()))
+
+    def update(self):
+        self.rect.x += screen_scroll
+
+class Portal(pygame.sprite.Sprite):
     def __init__(self, img, x, y):
         pygame.sprite.Sprite.__init__(self)
         self.image = img
@@ -663,6 +692,7 @@ explosion_group = pygame.sprite.Group()
 item_box_group = pygame.sprite.Group()
 decoration_group = pygame.sprite.Group()
 water_group = pygame.sprite.Group()
+portal_group = pygame.sprite.Group()
 exit_group = pygame.sprite.Group()
 
 
@@ -729,6 +759,7 @@ while run:
         item_box_group.update()
         decoration_group.update()
         water_group.update()
+        portal_group.update()
         exit_group.update()
         bullet_group.draw(screen)
         grenade_group.draw(screen)
@@ -736,6 +767,7 @@ while run:
         item_box_group.draw(screen)
         decoration_group.draw(screen)
         water_group.draw(screen)
+        portal_group.draw(screen)
         exit_group.draw(screen)
 
         #show intro
