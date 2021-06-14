@@ -115,6 +115,7 @@ def draw_bg():
 
 
 def draw_mist():
+    # this function draws a mist when the player is in the phantom dimension
     s = pygame.Surface((1000, 750))  # the size of your rect
     if player.gravity == 1:
         s.set_alpha(0)  # alpha level
@@ -136,7 +137,7 @@ def reset_level():
     portal_group.empty()
     exit_group.empty()
 
-    #create empty tile list
+    # create empty tile list
     data = []
     for row in range(ROWS):
         r = [-1] * COLS
@@ -172,18 +173,18 @@ class Soldier(pygame.sprite.Sprite):
         self.frame_index = 0
         self.action = 0
         self.update_time = pygame.time.get_ticks()
-        #ai specific variables
+        # ai specific variables
         self.move_counter = 0
         self.vision = pygame.Rect(0, 0, 650, 650)
         self.idling = False
         self.idling_counter = 0
         
-        #load all images for the players
+        # load all images for the players
         animation_types = ['Idle', 'Run', 'Jump', 'Death']
         for animation in animation_types:
-            #reset temporary list of images
+            # reset temporary list of images
             temp_list = []
-            #count number of files in the folder
+            # count number of files in the folder
             num_of_frames = len(os.listdir(f'img/{self.char_type}/{animation}'))
             for i in range(num_of_frames):
                 img = pygame.image.load(f'img/{self.char_type}/{animation}/{i}.png').convert_alpha()
@@ -201,7 +202,7 @@ class Soldier(pygame.sprite.Sprite):
     def update(self):
         self.update_animation()
         self.check_alive()
-        #update cooldown
+        # update cooldown
         if self.shoot_cooldown > 0:
             self.shoot_cooldown -= 1
         
@@ -215,12 +216,12 @@ class Soldier(pygame.sprite.Sprite):
 
 
     def move(self, moving_left, moving_right, ghost_move=False, player_pos=[0,0]):
-        #reset movement variables
+        #  reset movement variables
         screen_scroll = 0
         dx = 0
         dy = 0
 
-        #assign movement variables if moving left or right
+        # assign movement variables if moving left or right
         if moving_left:
             dx = -self.speed
             self.flip = True
@@ -250,38 +251,38 @@ class Soldier(pygame.sprite.Sprite):
                 elif self.rect.x > player_pos[0]:
                     dx = -self.speed
         
-        #jump
+        # jump
         if self.jump == True and self.in_air == False:
             self.vel_y = -11
             self.jump = False
             self.in_air = True
         
         if self.char_type != "enemy":
-            #apply gravity
+            # apply gravity
             self.vel_y += GRAVITY
             if self.vel_y > 10:
                 self.vel_y
             dy += self.vel_y * Y_SPEED_MULTIPIER * self.gravity
     
-            #check for collision
+            # check for collision
             for tile in world.obstacle_list:
-                #check collision in the x direction
+                # check collision in the x direction
                 if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
                     dx = 0
-                    #if the ai has hit a wall then make it turn around
+                    # if the ai has hit a wall then make it turn around
                     if self.char_type == 'enemy':
                         self.direction *= -1
                         self.move_counter = 0
-                #check for collision in the y direction
+                # check for collision in the y direction
                 if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                    #check if below the ground, i.e. jumping
+                    # check if below the ground, i.e. jumping
                     if self.vel_y < 0:
                         self.vel_y = 0
                         if self.gravity > 0:
                             dy = tile[1].bottom - self.rect.top
                         elif self.gravity < 0:
                             dy = tile[1].top - self.rect.bottom
-                    #check if above the ground, i.e. falling
+                    # check if above the ground, i.e. falling
                     elif self.vel_y >= 0:
                         self.vel_y = 0
                         self.in_air = False
@@ -292,10 +293,11 @@ class Soldier(pygame.sprite.Sprite):
 
 
 
-        #check for collision with water
+        # check for collision with water
         if pygame.sprite.spritecollide(self, water_group, False):
             self.health = 0
 
+        # check for player collision with a portal
         if pygame.sprite.spritecollide(self, portal_group, False):
             if self.char_type != "enemy":
                 if self.gravity == 1 and self.flag == 1:
@@ -309,28 +311,28 @@ class Soldier(pygame.sprite.Sprite):
         elif not(pygame.sprite.spritecollide(self, portal_group, False)):
             self.flag = 1
 
-        #check for collision with exit
+        # check for collision with exit
         level_complete = False
         if pygame.sprite.spritecollide(self, exit_group, False):
             level_complete = True
 
-        #check if fallen off the map
+        # check if fallen off the map
         if self.rect.bottom > SCREEN_HEIGHT:
             self.health = 0
         if self.rect.bottom < 0:
             self.health = 0
 
 
-        #check if going off the edges of the screen
+        # check if going off the edges of the screen
         if self.char_type == 'player':
             if self.rect.left + dx < 0 or self.rect.right + dx > SCREEN_WIDTH:
                 dx = 0
 
-        #update rectangle position
+        # update rectangle position
         self.rect.x += dx
         self.rect.y += dy
 
-        #update scroll based on player position
+        # update scroll based on player position
         if self.char_type == 'player':
             if (self.rect.right > SCREEN_WIDTH - SCROLL_THRESH and bg_scroll < (world.level_length * TILE_SIZE) - SCREEN_WIDTH)\
                 or (self.rect.left < SCROLL_THRESH and bg_scroll > abs(dx)):
@@ -362,20 +364,20 @@ class Soldier(pygame.sprite.Sprite):
             else:
                     self.update_action(0)
 
-        #scroll
+        # scroll
         self.rect.x += screen_scroll
 
 
     def update_animation(self):
-        #update animation
+        # update animation
         ANIMATION_COOLDOWN = 100
-        #update image depending on current frame
+        # update image depending on current frame
         self.image = self.animation_list[self.action][self.frame_index]
-        #check if enough time has passed since the last update
+        # check if enough time has passed since the last update
         if pygame.time.get_ticks() - self.update_time > ANIMATION_COOLDOWN:
             self.update_time = pygame.time.get_ticks()
             self.frame_index += 1
-        #if the animation has run out the reset back to the start
+        # if the animation has run out the reset back to the start
         if self.frame_index >= len(self.animation_list[self.action]):
             if self.action == 3:
                 self.frame_index = len(self.animation_list[self.action]) - 1
@@ -385,10 +387,10 @@ class Soldier(pygame.sprite.Sprite):
 
 
     def update_action(self, new_action):
-        #check if the new action is different to the previous one
+        # check if the new action is different to the previous one
         if new_action != self.action:
             self.action = new_action
-            #update the animation settings
+            # update the animation settings
             self.frame_index = 0
             self.update_time = pygame.time.get_ticks()
 
@@ -412,7 +414,7 @@ class World():
 
     def process_data(self, data):
         self.level_length = len(data[0])
-        #iterate through each value in level data file
+        # iterate through each value in level data file
         for y, row in enumerate(data):
             for x, tile in enumerate(row):
                 if tile >= 0:
@@ -432,22 +434,22 @@ class World():
                     elif tile >= 11 and tile <= 14:
                         decoration = Decoration(img, x * TILE_SIZE, y * TILE_SIZE)
                         decoration_group.add(decoration)
-                    elif tile == 15:#create player
+                    elif tile == 15: # create player
                         player = Soldier('player', x * TILE_SIZE, y * TILE_SIZE, 1.65, 5, 20, 5)
                         health_bar = HealthBar(10, 10, player.health, player.health)
-                    elif tile == 16:#create enemies
+                    elif tile == 16: # create enemies
                         enemy = Soldier('enemy', x * TILE_SIZE, y * TILE_SIZE, 1.65, 2, 20, 0)
                         enemy_group.add(enemy)
-                    elif tile == 17:#create ammo box
+                    elif tile == 17: # create ammo box
                         item_box = ItemBox('Ammo', x * TILE_SIZE, y * TILE_SIZE)
                         item_box_group.add(item_box)
-                    elif tile == 18:#create grenade box
+                    elif tile == 18: # create grenade box
                         item_box = ItemBox('Grenade', x * TILE_SIZE, y * TILE_SIZE)
                         item_box_group.add(item_box)
-                    elif tile == 19:#create health box
+                    elif tile == 19: # create health box
                         item_box = ItemBox('Health', x * TILE_SIZE, y * TILE_SIZE)
                         item_box_group.add(item_box)
-                    elif tile == 20:#create exit
+                    elif tile == 20: # create exit
                         exit = Exit(img, x * TILE_SIZE, y * TILE_SIZE)
                         exit_group.add(exit)
 
