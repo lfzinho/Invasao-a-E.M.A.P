@@ -69,6 +69,11 @@ pine1_img = pygame.image.load('img/Background/pine1.png').convert_alpha()
 pine2_img = pygame.image.load('img/Background/pine2.png').convert_alpha()
 mountain_img = pygame.image.load('img/Background/mountain.png').convert_alpha()
 sky_img = pygame.image.load('img/Background/sky_cloud.png').convert_alpha()
+bkgnd_scle = 1.3
+pine1_img = pygame.transform.scale(pine1_img, (int(pine1_img.get_width() * bkgnd_scle), int(pine1_img.get_height() * bkgnd_scle)))
+pine2_img = pygame.transform.scale(pine2_img, (int(pine2_img.get_width() * bkgnd_scle), int(pine2_img.get_height() * bkgnd_scle)))
+mountain_img =pygame.transform.scale(mountain_img, (int(mountain_img.get_width() * bkgnd_scle), int(mountain_img.get_height() * bkgnd_scle)))
+sky_img =pygame.transform.scale(sky_img, (int(sky_img.get_width() * bkgnd_scle), int(sky_img.get_height() * bkgnd_scle)))
 # store tiles in a list
 img_list = []
 for x in range(TILE_TYPES):
@@ -110,11 +115,18 @@ def draw_bg():
     screen.fill(BG)
     width = sky_img.get_width()
     for x in range(5):
-        screen.blit(sky_img, ((x * width) - bg_scroll * 0.5, 0))
-        screen.blit(mountain_img, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - mountain_img.get_height() - 300))
-        screen.blit(pine1_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - pine1_img.get_height() - 150))
-        screen.blit(pine2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - pine2_img.get_height()))
+        screen.blit(sky_img, ((x * width) - bg_scroll*0.5, 0))
+        screen.blit(mountain_img, ((x * width) - bg_scroll, 0))
+        # screen.blit(sky_img, ((x * width) - bg_scroll * 0.5, 0))
+        # screen.blit(mountain_img, ((x * width) - bg_scroll * 0.6, SCREEN_HEIGHT - mountain_img.get_height() - 300))
+        # screen.blit(pine1_img, ((x * width) - bg_scroll * 0.7, SCREEN_HEIGHT - pine1_img.get_height() - 150))
+        # screen.blit(pine2_img, ((x * width) - bg_scroll * 0.8, SCREEN_HEIGHT - pine2_img.get_height()))
 
+def draw_obg():
+    width = sky_img.get_width()
+    for x in range(5):
+        screen.blit(pine1_img, ((x * width) - bg_scroll*1.2, 0))
+        screen.blit(pine2_img, ((x * width) - bg_scroll - pygame.time.get_ticks()*0.1, 0))
 
 def draw_mist():
     # this function draws a mist when the player is in the phantom dimension
@@ -751,6 +763,7 @@ while run:
         draw_bg()
         # draw world map
         world.draw()
+        
         # show player health
         health_bar.draw(player.health)
         # show ammo
@@ -787,6 +800,10 @@ while run:
         water_group.draw(screen)
         portal_group.draw(screen)
         exit_group.draw(screen)
+
+        # Background overlay
+        draw_obg()
+
         draw_mist()
 
         # show intro
