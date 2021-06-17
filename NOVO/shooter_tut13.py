@@ -43,7 +43,7 @@ grenade_thrown = False
 
 # load music and sounds
 pygame.mixer.music.load('audio/Ghostbusters (8 Bit Remix Cover Version).mp3')
-pygame.mixer.music.set_volume(0.075)
+pygame.mixer.music.set_volume(0.03)
 bg_music = pygame.mixer.music
 bg_music.play(-1, 0.0, 5000)
 jump_fx = pygame.mixer.Sound('audio/jump.wav')
@@ -179,6 +179,7 @@ class Soldier(pygame.sprite.Sprite):
         self.vision = pygame.Rect(0, 0, 650, 650)
         self.idling = False
         self.idling_counter = 0
+        self.pesoY = random.randrange(3, 6)
 
         # load all images for the players
         animation_types = ['Idle', 'Run', 'Jump', 'Death']
@@ -237,7 +238,7 @@ class Soldier(pygame.sprite.Sprite):
             # O fantasma dá preferência pra movimentação em y, pois assim ele
             # entra na mira do player. Isso deixa o jogo mais divertido e justo.
 
-            if abs(self.rect.y - player_pos[1]) * 3 > abs(self.rect.x - player_pos[0]):
+            if abs(self.rect.y - player_pos[1]) * self.pesoY > abs(self.rect.x - player_pos[0]):
                 if self.rect.y < player_pos[1]:
                     dy = self.speed
                 elif self.rect.y > player_pos[1]:
