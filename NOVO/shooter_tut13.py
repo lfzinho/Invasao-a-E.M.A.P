@@ -64,6 +64,7 @@ death_fx.set_volume(0.2)
 start_img = pygame.image.load('img/start_btn.png').convert_alpha()
 exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
 restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
+magic_fx = pygame.image.load('img/magic_fx.png').convert_alpha()
 # background
 pine1_img = pygame.image.load('img/Background/pine1.png').convert_alpha()
 pine2_img = pygame.image.load('img/Background/pine2.png').convert_alpha()
@@ -130,14 +131,11 @@ def draw_obg():
 
 def draw_mist():
     # this function draws a mist when the player is in the phantom dimension
-    s = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))  # the size of your rect
-    if player.gravity == 1:
-        s.set_alpha(0)  # alpha level
+    s = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     if player.gravity == -1:
-        s.set_alpha(90)  # alpha level
-
-    s.fill((50, 0, 100))
-    screen.blit(s, (0, 0))
+        screen.blit(magic_fx, (0, 0))  # alpha level
+        
+    
 
 
 # function to reset level
