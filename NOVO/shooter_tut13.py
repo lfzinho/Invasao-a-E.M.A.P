@@ -126,8 +126,6 @@ def draw_obg():
         screen.blit(mist_img, ((x * width) - bg_scroll - pygame.time.get_ticks()*0.1, 0))
 
 def draw_mist():
-    # this function draws a mist when the player is in the phantom dimension
-    s = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
     if player.gravity == -1:
         screen.blit(magic_fx, (0, 0))  # alpha level
         
