@@ -65,6 +65,8 @@ start_img = pygame.image.load('img/start_btn.png').convert_alpha()
 exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
 restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
 magic_fx = pygame.image.load('img/magic_fx.png').convert_alpha()
+# menu
+menu = pygame.image.load('./img/menu.png').convert_alpha()
 # background
 overlay_img = pygame.image.load('img/Background/overlay.png').convert_alpha()
 mist_img = pygame.image.load('img/Background/mist.png').convert_alpha()
@@ -689,12 +691,12 @@ class ScreenFade():
 
 # create screen fades
 intro_fade = ScreenFade(1, BLACK, 4)
-death_fade = ScreenFade(2, PINK, 4)
+death_fade = ScreenFade(2, BLACK, 4)
 
 # create buttons
-start_button = button.Button(SCREEN_WIDTH // 2 - 130, SCREEN_HEIGHT // 2 - 150, start_img, 1)
-exit_button = button.Button(SCREEN_WIDTH // 2 - 110, SCREEN_HEIGHT // 2 + 50, exit_img, 1)
-restart_button = button.Button(SCREEN_WIDTH // 2 - 100, SCREEN_HEIGHT // 2 - 50, restart_img, 2)
+start_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4, start_img, 1)
+exit_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, exit_img, 1)
+restart_button = button.Button(SCREEN_WIDTH // 2 - 135, SCREEN_HEIGHT // 2 - 50, restart_img, 1)
 
 # create sprite groups
 enemy_group = pygame.sprite.Group()
@@ -736,8 +738,8 @@ while run:
         player.health = 500
 
     if start_game == False:
-        # draw menu
-        screen.fill(BG)
+        # draw the menu
+        screen.blit(menu, (0, 0)
         # add buttons
         if start_button.draw(screen):
             start_game = True
