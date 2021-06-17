@@ -214,7 +214,7 @@ class Soldier(pygame.sprite.Sprite):
         if self.char_type == "enemy" and self.alive:
             if pygame.sprite.collide_rect(player, self):
                 if player.alive:
-                    player.health -= 10
+                    player.health -= 20
                     self.kill()
 
     def move(self, moving_left, moving_right, ghost_move=False, player_pos=[0, 0]):
@@ -731,7 +731,7 @@ while run:
         temp_key_list.pop(0)
     if temp_key_list == [pygame.K_UP, pygame.K_UP, pygame.K_DOWN, pygame.K_DOWN,
                          pygame.K_LEFT, pygame.K_RIGHT, pygame.K_LEFT, pygame.K_RIGHT,
-                         pygame.K_a, pygame.K_b]:
+                         pygame.K_b, pygame.K_a]:
         start_game = True
         player.health = 500
 
