@@ -67,6 +67,8 @@ restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
 magic_fx = pygame.image.load('img/magic_fx.png').convert_alpha()
 # menu
 menu = pygame.image.load('./img/menu.png').convert_alpha()
+historia1 = pygame.image.load('./img/historia1.png').convert_alpha()
+historia2 = pygame.image.load('./img/historia2.png').convert_alpha()
 # background
 overlay_img = pygame.image.load('img/Background/overlay.png').convert_alpha()
 mist_img = pygame.image.load('img/Background/mist.png').convert_alpha()
@@ -127,6 +129,39 @@ def draw_obg():
     for x in range(5):
         screen.blit(overlay_img, ((x * width) - bg_scroll*1.2, 0))
         screen.blit(mist_img, ((x * width) - bg_scroll - pygame.time.get_ticks()*0.1, 0))
+
+def draw_history(first_time, piece, time = 25000):
+    global run
+    global start_game
+    global start_intro
+    
+    while pygame.time.get_ticks() <= first_time + time :
+        clicked = False
+        
+        if piece == 1:
+            screen.blit(historia1, (0, 0))
+        elif piece == 2:
+            screen.blit(historia2, (0, 0))
+            
+        for event in pygame.event.get():
+            # quit game
+            if event.type == pygame.QUIT:
+                pygame.quit()
+            # keyboard presses
+            if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
+                clicked = True
+                break
+            
+        if clicked:
+            break
+        
+        pygame.display.update()
+        
+    if piece == 1:
+        start_game = True
+        start_intro = True
+    if piece == 2:
+        run = False
 
 def draw_mist():
     if player.gravity == -1:
@@ -739,11 +774,11 @@ while run:
 
     if start_game == False:
         # draw the menu
-        screen.blit(menu, (0, 0)
+        screen.blit(menu, (0, 0))
         # add buttons
         if start_button.draw(screen):
-            start_game = True
-            start_intro = True
+            draw_history(pygame.time.get_ticks(), 1)
+            
         if exit_button.draw(screen):
             run = False
     else:
@@ -821,8 +856,10 @@ while run:
             bg_scroll -= screen_scroll
             # check if player has completed the level
             if level_complete:
-                start_intro = True
                 level += 1
+                if level == 3:
+                    draw_history(pygame.time.get_ticks(), 2, 100000)
+                start_intro = True
                 bg_scroll = 0
                 world_data = reset_level()
                 if level <= MAX_LEVELS:
