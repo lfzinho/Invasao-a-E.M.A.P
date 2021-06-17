@@ -156,8 +156,6 @@ class Soldier(pygame.sprite.Sprite):
         self.alive = True
         self.char_type = char_type
         self.speed = speed
-        self.ammo = ammo
-        self.start_ammo = ammo
         self.shoot_cooldown = 0
         self.grenades = grenades
         self.health = 100
@@ -211,7 +209,6 @@ class Soldier(pygame.sprite.Sprite):
         if self.char_type == "enemy" and self.alive:
             if pygame.sprite.collide_rect(player, self):
                 if player.alive:
-                    print(self.char_type, self.alive)
                     player.health -= 10
                     self.kill()
 
@@ -343,14 +340,12 @@ class Soldier(pygame.sprite.Sprite):
         return screen_scroll, level_complete
 
     def shoot(self):
-        if self.shoot_cooldown == 0 and self.ammo > 0:
+        if self.shoot_cooldown == 0:
             self.shoot_cooldown = 20
             bullet = Bullet(self.rect.centerx + (0.75 * self.rect.size[0] * self.direction),
                             self.rect.centery + (0.2 * self.rect.size[0]),
                             self.direction)
             bullet_group.add(bullet)
-            # reduce ammo
-            self.ammo -= 1
             shot_fx.play()
 
     def ai(self, player_pos):
@@ -517,8 +512,6 @@ class ItemBox(pygame.sprite.Sprite):
                 player.health += 25
                 if player.health > player.max_health:
                     player.health = player.max_health
-            elif self.item_type == 'Ammo':
-                player.ammo += 15
             elif self.item_type == 'Grenade':
                 player.grenades += 3
             # delete the item box
@@ -753,14 +746,10 @@ while run:
         world.draw()
         # show player health
         health_bar.draw(player.health)
-        # show ammo
-        draw_text('AMMO: ', font, WHITE, 10, 35)
-        for x in range(player.ammo):
-            screen.blit(bullet_img, (90 + (x * 10), 40))
         # show grenades
-        draw_text('GRENADES: ', font, WHITE, 10, 60)
+        draw_text('Explosivo: ', font, WHITE, 10, 40)
         for x in range(player.grenades):
-            screen.blit(grenade_img, (135 + (x * 15), 60))
+            screen.blit(grenade_img, (120 + (x * 15), 42))
 
         player.update()
         player.draw()
