@@ -83,6 +83,7 @@ for x in range(TILE_TYPES):
     img_list.append(img)
 # bullet
 bullet_img = pygame.image.load('img/icons/bullet.png').convert_alpha()
+bullet_img = pygame.transform.scale(bullet_img, (int(bullet_img.get_width() * 2), int(bullet_img.get_height() * 2)))
 # grenade
 grenade_img = pygame.image.load('img/icons/grenade.png').convert_alpha()
 # pick up boxes
