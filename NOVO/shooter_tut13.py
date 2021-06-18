@@ -729,8 +729,8 @@ intro_fade = ScreenFade(1, BLACK, 4)
 death_fade = ScreenFade(2, BLACK, 4)
 
 # create buttons
-start_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 4, start_img, 1)
-exit_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, exit_img, 1)
+start_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2, start_img, 1)
+exit_button = button.Button(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 1.4, exit_img, 1)
 restart_button = button.Button(SCREEN_WIDTH // 2 - 135, SCREEN_HEIGHT // 2 - 50, restart_img, 1)
 
 # create sprite groups
