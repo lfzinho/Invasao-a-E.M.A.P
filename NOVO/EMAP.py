@@ -42,81 +42,90 @@ grenade = False
 grenade_thrown = False
 
 # load music and sounds
-#pygame.mixer.music.load('audio/Ghostbusters (8 Bit Remix Cover Version).mp3')
+# pygame.mixer.music.load('audio/Ghostbusters (8 Bit Remix Cover Version).mp3')
 pygame.mixer.music.load(os.path.join("audio", "Ghostbusters (8 Bit Remix Cover Version).mp3"))
 pygame.mixer.music.set_volume(0.03)
 bg_music = pygame.mixer.music
 bg_music.play(-1, 0.0, 5000)
-#jump_fx = pygame.mixer.Sound('audio/jump.wav')
+# jump_fx = pygame.mixer.Sound('audio/jump.wav')
 jump_fx = pygame.mixer.Sound(os.path.join("audio", "jump.wav"))
 jump_fx.set_volume(0.05)
-#shot_fx = pygame.mixer.Sound('audio/shot.wav')
+# shot_fx = pygame.mixer.Sound('audio/shot.wav')
 shot_fx = pygame.mixer.Sound(os.path.join("audio", "shot.wav"))
 shot_fx.set_volume(0.05)
-#grenade_fx = pygame.mixer.Sound('audio/grenade.wav')
+# grenade_fx = pygame.mixer.Sound('audio/grenade.wav')
 grenade_fx = pygame.mixer.Sound(os.path.join("audio", "grenade.wav"))
 grenade_fx.set_volume(0.05)
-#hitmarker_fx = pygame.mixer.Sound('audio/Hitsound_COD.wav')
+# hitmarker_fx = pygame.mixer.Sound('audio/Hitsound_COD.wav')
 hitmarker_fx = pygame.mixer.Sound(os.path.join("audio", "Hitsound_COD.wav"))
 hitmarker_fx.set_volume(0.05)
-#portal_fx = pygame.mixer.Sound('audio/portal.wav')
+# portal_fx = pygame.mixer.Sound('audio/portal.wav')
 portal_fx = pygame.mixer.Sound(os.path.join("audio", "portal.wav"))
 portal_fx.set_volume(0.02)
-#death_fx = pygame.mixer.Sound('audio/8-bit-death-sound-effect.wav')
+# death_fx = pygame.mixer.Sound('audio/8-bit-death-sound-effect.wav')
 death_fx = pygame.mixer.Sound(os.path.join("audio", "8-bit-death-sound-effect.wav"))
 death_fx.set_volume(0.2)
 
 # load images
 # button images
-#start_img = pygame.image.load('img/start_btn.png').convert_alpha()
+# start_img = pygame.image.load('img/start_btn.png').convert_alpha()
 start_img = pygame.image.load(os.path.join("img", "start_btn.png")).convert_alpha()
-#exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
+# exit_img = pygame.image.load('img/exit_btn.png').convert_alpha()
 exit_img = pygame.image.load(os.path.join("img", "exit_btn.png")).convert_alpha()
-#restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
+# restart_img = pygame.image.load('img/restart_btn.png').convert_alpha()
 restart_img = pygame.image.load(os.path.join("img", "restart_btn.png")).convert_alpha()
-#magic_fx = pygame.image.load('img/magic_fx.png').convert_alpha()
+# magic_fx = pygame.image.load('img/magic_fx.png').convert_alpha()
 magic_fx = pygame.image.load(os.path.join("img", "magic_fx.png")).convert_alpha()
 # menu
-#menu = pygame.image.load('./img/menu.png').convert_alpha()
+# menu = pygame.image.load('./img/menu.png').convert_alpha()
 menu = pygame.image.load(os.path.join(".", "img", "menu.png")).convert_alpha()
-#historia1 = pygame.image.load('./img/historia1.png').convert_alpha()
+# historia1 = pygame.image.load('./img/historia1.png').convert_alpha()
 historia1 = pygame.image.load(os.path.join(".", "img", "historia1.png")).convert_alpha()
-#historia2 = pygame.image.load('./img/historia2.png').convert_alpha()
+# historia2 = pygame.image.load('./img/historia2.png').convert_alpha()
 historia2 = pygame.image.load(os.path.join(".", "img", "historia2.png")).convert_alpha()
 # background
-#overlay_img = pygame.image.load('img/Background/overlay.png').convert_alpha()
+# overlay_img = pygame.image.load('img/Background/overlay.png').convert_alpha()
 overlay_img = pygame.image.load(os.path.join("img", "Background", "overlay.png")).convert_alpha()
-#mist_img = pygame.image.load('img/Background/mist.png').convert_alpha()
+# mist_img = pygame.image.load('img/Background/mist.png').convert_alpha()
 mist_img = pygame.image.load(os.path.join("img", "Background", "mist.png")).convert_alpha()
-#corridor_img = pygame.image.load('img/Background/corridor.png').convert_alpha()
+# corridor_img = pygame.image.load('img/Background/corridor.png').convert_alpha()
 corridor_img = pygame.image.load(os.path.join("img", "Background", "corridor.png")).convert_alpha()
-#sky_img = pygame.image.load('img/Background/sky_cloud.png').convert_alpha()
+# sky_img = pygame.image.load('img/Background/sky_cloud.png').convert_alpha()
 sky_img = pygame.image.load(os.path.join("img", "Background", "sky_cloud.png")).convert_alpha()
 bkgnd_scle = 1.3
-overlay_img = pygame.transform.scale(overlay_img, (int(overlay_img.get_width() * bkgnd_scle), int(overlay_img.get_height() * bkgnd_scle)))
-mist_img = pygame.transform.scale(mist_img, (int(mist_img.get_width() * bkgnd_scle), int(mist_img.get_height() * bkgnd_scle)))
-corridor_img =pygame.transform.scale(corridor_img, (int(corridor_img.get_width() * bkgnd_scle), int(corridor_img.get_height() * bkgnd_scle)))
-sky_img =pygame.transform.scale(sky_img, (int(sky_img.get_width() * bkgnd_scle), int(sky_img.get_height() * bkgnd_scle)))
+overlay_img = pygame.transform.scale(overlay_img,
+                                     (int(overlay_img.get_width() * bkgnd_scle),
+                                      int(overlay_img.get_height() * bkgnd_scle)))
+mist_img = pygame.transform.scale(mist_img,
+                                  (int(mist_img.get_width() * bkgnd_scle),
+                                   int(mist_img.get_height() * bkgnd_scle)))
+corridor_img = pygame.transform.scale(corridor_img,
+                                      (int(corridor_img.get_width() * bkgnd_scle),
+                                       int(corridor_img.get_height() * bkgnd_scle)))
+sky_img = pygame.transform.scale(sky_img,
+                                 (int(sky_img.get_width() * bkgnd_scle),
+                                  int(sky_img.get_height() * bkgnd_scle)))
 # store tiles in a list
 img_list = []
 for x in range(TILE_TYPES):
-    #img = pygame.image.load(f'img/Tile/{x}.png')
+    # img = pygame.image.load(f'img/Tile/{x}.png')
     img = pygame.image.load(os.path.join("img", "Tile", f"{x}.png"))
     img = pygame.transform.scale(img, (TILE_SIZE, TILE_SIZE))
     img_list.append(img)
+
 # bullet
-#bullet_img = pygame.image.load('img/icons/bullet.png').convert_alpha()
+# bullet_img = pygame.image.load('img/icons/bullet.png').convert_alpha()
 bullet_img = pygame.image.load(os.path.join("img", "icons", "bullet.png")).convert_alpha()
 bullet_img = pygame.transform.scale(bullet_img, (int(bullet_img.get_width() * 2), int(bullet_img.get_height() * 2)))
 # grenade
-#grenade_img = pygame.image.load('img/icons/grenade.png').convert_alpha()
+# grenade_img = pygame.image.load('img/icons/grenade.png').convert_alpha()
 grenade_img = pygame.image.load(os.path.join("img", "icons", "grenade.png")).convert_alpha()
 # pick up boxes
-#health_box_img = pygame.image.load('img/icons/health_box.png').convert_alpha()
+# health_box_img = pygame.image.load('img/icons/health_box.png').convert_alpha()
 health_box_img = pygame.image.load(os.path.join("img", "icons", "health_box.png")).convert_alpha()
-#ammo_box_img = pygame.image.load('img/icons/ammo_box.png').convert_alpha()
+# ammo_box_img = pygame.image.load('img/icons/ammo_box.png').convert_alpha()
 ammo_box_img = pygame.image.load(os.path.join("img", "icons", "ammo_box.png")).convert_alpha()
-#grenade_box_img = pygame.image.load('img/icons/grenade_box.png').convert_alpha()
+# grenade_box_img = pygame.image.load('img/icons/grenade_box.png').convert_alpha()
 grenade_box_img = pygame.image.load(os.path.join("img", "icons", "grenade_box.png")).convert_alpha()
 
 item_boxes = {
@@ -146,28 +155,30 @@ def draw_bg():
     screen.fill(BG)
     width = sky_img.get_width()
     for x in range(5):
-        screen.blit(sky_img, ((x * width) - bg_scroll*0.5, 0))
+        screen.blit(sky_img, ((x * width) - bg_scroll * 0.5, 0))
         screen.blit(corridor_img, ((x * width) - bg_scroll, 0))
+
 
 def draw_obg():
     width = sky_img.get_width()
     for x in range(5):
-        screen.blit(overlay_img, ((x * width) - bg_scroll*1.2, 0))
-        screen.blit(mist_img, ((x * width) - bg_scroll - pygame.time.get_ticks()*0.1, 0))
+        screen.blit(overlay_img, ((x * width) - bg_scroll * 1.2, 0))
+        screen.blit(mist_img, ((x * width) - bg_scroll - pygame.time.get_ticks() * 0.1, 0))
 
-def draw_history(first_time, piece, time = 25000):
+
+def draw_history(first_time, piece, time=25000):
     global run
     global start_game
     global start_intro
-    
-    while pygame.time.get_ticks() <= first_time + time :
+
+    while pygame.time.get_ticks() <= first_time + time:
         clicked = False
-        
+
         if piece == 1:
             screen.blit(historia1, (0, 0))
         elif piece == 2:
             screen.blit(historia2, (0, 0))
-            
+
         for event in pygame.event.get():
             # quit game
             if event.type == pygame.QUIT:
@@ -176,23 +187,22 @@ def draw_history(first_time, piece, time = 25000):
             if event.type == pygame.KEYDOWN or event.type == pygame.MOUSEBUTTONDOWN:
                 clicked = True
                 break
-            
+
         if clicked:
             break
-        
+
         pygame.display.update()
-        
+
     if piece == 1:
         start_game = True
         start_intro = True
     if piece == 2:
         run = False
 
+
 def draw_mist():
     if player.gravity == -1:
         screen.blit(magic_fx, (0, 0))  # alpha level
-        
-    
 
 
 # function to reset level
@@ -252,11 +262,12 @@ class Soldier(pygame.sprite.Sprite):
             # reset temporary list of images
             temp_list = []
             # count number of files in the folder
-            #num_of_frames = len(os.listdir(f'img/{self.char_type}/{animation}'))
+            # num_of_frames = len(os.listdir(f'img/{self.char_type}/{animation}'))
             num_of_frames = len(os.listdir(os.path.join("img", f'{self.char_type}', f'{animation}')))
             for i in range(num_of_frames):
-                #img = pygame.image.load(f'img/{self.char_type}/{animation}/{i}.png').convert_alpha()
-                img = pygame.image.load(os.path.join("img", f"{self.char_type}", f"{animation}", f"{i}.png")).convert_alpha()
+                # img = pygame.image.load(f'img/{self.char_type}/{animation}/{i}.png').convert_alpha()
+                img = pygame.image.load(
+                    os.path.join("img", f"{self.char_type}", f"{animation}", f"{i}.png")).convert_alpha()
                 img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
                 temp_list.append(img)
             self.animation_list.append(temp_list)
@@ -699,7 +710,7 @@ class Explosion(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.images = []
         for num in range(1, 6):
-            #img = pygame.image.load(f'img/explosion/exp{num}.png').convert_alpha()
+            # img = pygame.image.load(f'img/explosion/exp{num}.png').convert_alpha()
             img = pygame.image.load(os.path.join("img", "explosion", f"exp{num}.png")).convert_alpha()
             img = pygame.transform.scale(img, (int(img.get_width() * scale), int(img.get_height() * scale)))
             self.images.append(img)
@@ -806,7 +817,7 @@ while run:
         # add buttons
         if start_button.draw(screen):
             draw_history(pygame.time.get_ticks(), 1)
-            
+
         if exit_button.draw(screen):
             run = False
     else:
@@ -814,8 +825,7 @@ while run:
         draw_bg()
         # draw world map
         world.draw()
-        
-        
+
         player.update()
         player.draw()
 
@@ -853,7 +863,6 @@ while run:
         draw_text('Explosivo: ', font, WHITE, 10, 40)
         for x in range(player.grenades):
             screen.blit(grenade_img, (120 + (x * 15), 42))
-
 
         # show intro
         if start_intro == True:
