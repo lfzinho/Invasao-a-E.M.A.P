@@ -6,7 +6,7 @@ Considerando o atual contexto pandêmico e, por isso, os estudantes estarem tend
 ## Integrantes
 - Gustavo Sanches
 - Lucas Treuke
-- Luís Languardia
+- Luís Laguardia
 - Kayo Yokoyama
 - Vanessa B. Wille
 
