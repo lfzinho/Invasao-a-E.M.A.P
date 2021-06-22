@@ -12,8 +12,10 @@ Considerando o atual contexto pandêmico e, por isso, os estudantes estarem tend
 
 ## Desenvolvimento do jogo
 Para sua elaboração, usou-se como referência um jogo desenvolvido em PyGame e uma arte base, dísponíveis abaixo:
-- [Jogo base](https://github.com/russs123/Shooter)
+- [Jogo base (tutorial)](https://github.com/russs123/Shooter)
 - [Arte base](https://www.kenney.nl/assets/platformer-art-pixel-redux)
+
+Vale considerar que não seguiu-se o desenvolvimento do jogo do [curso_pygame](https://github.com/fccoelho/curso_pygame) pois o tutorial econtrado possuía mais sentido para o formato de jogo que procurávamos criar. Contudo, foram realizadas todas as modificações solicitadas.
 
 ## Informações do jogo
 - Movimentação: "W", "A", "S", "D";
