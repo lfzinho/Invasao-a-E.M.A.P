@@ -1,21 +1,21 @@
-*Obs: O nome do repo é uma referência à dlc do último Mário*
-nao consegui pensar em nada mais legal desculpa
+# Avaliação 2 de Introdução a Computação: Invasão à EMAp
+Este documento trata-se de um jogo desenvolvido para a avaliação 2 da disciplina de Introdução a Computação, pela Fundação Getúlio Vargas/RJ. 
 
-# Info
+Considerando o atual contexto pandêmico e, por isso, os estudantes estarem tendo aulas remotas, a ideia por tras do jogo consiste em uma invasão à EMAp, após anos abandonada, na qual o estudante precisa enfrentar perigos fantasmagóricos.
 
-Playlist base:
-https://www.youtube.com/playlist?list=PLjcN1EyupaQm20hlUE11y9y8EY2aXLpnv
+## Integrantes
+- Gustavo Sanches
+- Lucas Treuke
+- Luís Languardia
+- Kayo Yokoyama
+- Vanessa B. Wille
 
+## Desenvolvimento do jogo
+Para sua elaboração, usou-se como referência um jogo desenvolvido em PyGame e uma arte base, dísponíveis abaixo:
+- [Jogo base](https://github.com/russs123/Shooter)
+- [Arte base](https://www.kenney.nl/assets/platformer-art-pixel-redux)
 
-1 e 2   - Base do personagem    : Gustavo
-3 e 11  - animaçao e scroll     : Truco
-4 e 10  - colisão e tiros       : Kayo
-8 e 9   - IA e loading levels   : Laguardia
-12 e 13 - Menus e transition    : Vanessa
-
-
-Arte base:
-https://www.kenney.nl/assets/platformer-art-pixel-redux
-
-
-**P E R D E S T E**
+## Informações do jogo
+- Movimentação: "W", "A", "S", "D";
+- Q: lançar explosivos; 
+- Space: atirar.
