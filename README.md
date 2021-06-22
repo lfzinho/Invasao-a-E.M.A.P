@@ -11,13 +11,19 @@ Considerando o atual contexto pandêmico e, por isso, os estudantes estarem tend
 - Vanessa B. Wille
 
 ## Desenvolvimento do jogo
-Para sua elaboração, usou-se como referência um jogo desenvolvido em PyGame e uma arte base, dísponíveis abaixo:
+Como o nosso plano era fazer um jogo de plataforma, optamos por pegar outro Git como base para o projeto. Além disso, também usamos alguns sprites de domínio público. Tanto o link do git quanto o dos sprites se encontra abaixo:
+
 - [Jogo base (tutorial)](https://github.com/russs123/Shooter)
 - [Arte base](https://www.kenney.nl/assets/platformer-art-pixel-redux)
 
-Vale considerar que não seguiu-se o desenvolvimento do jogo do [curso_pygame](https://github.com/fccoelho/curso_pygame) pois o tutorial econtrado possuía mais sentido para o formato de jogo que procurávamos criar. Contudo, foram realizadas todas as modificações solicitadas.
+Algumas das modificações que fizemos no projeto original:
+- Novos sprites
+- Elementos de foreground
+- Inimigo diferente
+- Portal interdimensional
+- Etc
 
 ## Informações do jogo
-- Movimentação: "W", "A", "S", "D";
-- Q: lançar explosivos; 
-- Space: atirar.
+- WASD: controla o personagem
+- Space: atira
+- Q: lança explosivos
