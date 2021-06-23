@@ -1,3 +1,5 @@
+***Se estiver muito difícil, tente o Konami Code no menu inicial ;)***
+
 ## Avaliação 2 de Introdução a Computação: Invasão à EMAp
 Este documento trata-se de um jogo desenvolvido para a avaliação 2 da disciplina de Introdução a Computação, pela Fundação Getúlio Vargas/RJ. 
 
