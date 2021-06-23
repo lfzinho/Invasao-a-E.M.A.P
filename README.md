@@ -27,3 +27,5 @@ Algumas das modificações que fizemos no projeto original:
 - WASD: controla o personagem
 - Space: atira
 - Q: lança explosivos
+- 
+O módulo principal se chama [main.py](/main.py), com o qual o jogo pode ser executado.
