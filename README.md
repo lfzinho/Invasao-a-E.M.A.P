@@ -11,7 +11,7 @@ Considerando o atual contexto pandêmico e, por isso, os estudantes estarem tend
 - Vanessa B. Wille
 
 ## Desenvolvimento do jogo
-Como o nosso plano era fazer um jogo de plataforma, optamos por pegar outro Git como base para o projeto. Além disso, também usamos alguns sprites de domínio público. Tanto o link do git quanto o dos sprites se encontra abaixo:
+Como o nosso plano era fazer um jogo de plataforma, optamos por pegar outro Git como base para o projeto. Além disso, também usamos alguns sprites de domínio público. Tanto o link do git quanto o dos sprites se encontram abaixo:
 
 - [Jogo base (tutorial)](https://github.com/russs123/Shooter)
 - [Arte base](https://www.kenney.nl/assets/platformer-art-pixel-redux)
